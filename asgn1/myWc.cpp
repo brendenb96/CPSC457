@@ -25,6 +25,7 @@ int main(int argc, char * const argv[]) {
   int ret;
   char buf[BUFF_SIZE] = "";
   int count = 0;
+  int stop_search = 0;
 
   // get the file name from command line
   string filename;
@@ -43,11 +44,14 @@ int main(int argc, char * const argv[]) {
     exit(-1);
   }
 
+  // read BUFF_SIZE chars from file 
   while ((ret = read(fd, buf, sizeof(buf)-1)) > 0) {
-    //buf[ret] = 0x00;
-    for (int i = 0; i <= sizeof(buf)-1; i++) {
+    // Loop through chars read from file
+    for (int i = 0; i <= ret; i++) {
+      // Increment count if newline
       if( buf[i] == '\n') count ++;
     }
+    // Reset buffer
     char buf[BUFF_SIZE] = "";
   }
   
